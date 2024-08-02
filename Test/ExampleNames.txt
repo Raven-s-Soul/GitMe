@@ -1,4 +1,1 @@
-AssertError
 ../Test
-../out
-../GitMe

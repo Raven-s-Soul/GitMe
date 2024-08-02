@@ -367,4 +367,5 @@ FodyWeavers.xsd
 /CMakeSettings.json
 /.gitattributes
 .vscode/*
-/Test/GitMe
+/Test/*
+!.gitignore

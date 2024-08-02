@@ -8,7 +8,7 @@ bool lfFile(std::set<std::string> *set)
     std::string command = "ls";
     std::system(command.c_str());
 #elif _WIN32
-    ShellExecuteA(NULL, "ls", NULL, NULL, NULL, SW_SHOWNORMAL);
+    ShellExecuteA(NULL, "dir", NULL, NULL, NULL, SW_SHOWNORMAL);
 #else
     std::string command = "ls ";
     std::system(command.c_str());
@@ -30,7 +30,8 @@ bool lfFile(std::set<std::string> *set)
             std::string txt = buffer;
             if (txt.find(File_Extension) != std::string::npos)
             {
-                LOG("FOUND - " << txt);
+                // LOG("FOUND - " << txt);
+                std::cout << "Reading - " << txt;
                 //! Remove '\n'
                 if (txt.find('\n') != std::string::npos)
                     txt.pop_back();
@@ -65,8 +66,9 @@ void fileRead(std::string filename, std::set<std::string> *set)
 
 void cdTo(std::string directory)
 {
-    LOG("\n"
-        << directory << " <----------")
+    // LOG("\n"<< directory << " <----------")
+    std::cout << "\n"
+              << directory << std::endl;
 #ifdef _WIN32
     if (_chdir(directory.c_out()) != 0)
         std::cerr << "Failed to change directory" << std::endl;
@@ -76,6 +78,15 @@ void cdTo(std::string directory)
         throw std::runtime_error("Failed to change directory.");
     }
 #endif
+
+    //* Write .gitignore
+    // std::ofstream file(".gitignore");
+    // if (!file.is_open())
+    //     throw std::runtime_error("Failed to write the file.");
+
+    // std::string text = "GitMe";
+    // file << text;
+    // file.close();
 }
 
 /*
@@ -97,3 +108,41 @@ void cdTo(std::string directory)
     //  Close the pipe
     pclose(pipe);
     */
+
+// Function to execute a command and get its output
+std::string exec(const std::string &cmd)
+{
+    char buffer[128];
+    std::string result;
+#ifdef _WIN32
+    FILE *pipe = _popen(cmd.c_str(), "r");
+#else
+    FILE *pipe = popen(cmd.c_str(), "r");
+#endif
+
+    if (!pipe)
+        throw std::runtime_error("popen() failed!");
+    try
+    {
+        while (fgets(buffer, sizeof(buffer), pipe) != nullptr)
+        {
+            result += buffer;
+        }
+    }
+    catch (...)
+    {
+#ifdef _WIN32
+        _pclose(pipe);
+#else
+        pclose(pipe);
+#endif
+        throw;
+    }
+#ifdef _WIN32
+    _pclose(pipe);
+#else
+    pclose(pipe);
+#endif
+
+    return result;
+}
