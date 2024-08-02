@@ -1,41 +1,13 @@
 #pragma once
+#include "macro.h"
 #include <iostream>
 #include <fstream>
+#include "commands.h"
+#include <set>
+#include <string>
 
-// 	Debug Macro
-//	1 - Active , 0 - Deactive
-#define DEBUG_LOG 1
+#define File_Extension ".txt"
 
-#if DEBUG_LOG
-#define LOG(message) std::cout << message << std::endl;
-#else
-#define LOG(message)
-#endif
+static std::set<std::string> locations;
 
-bool FileReading()
-{
-    // std::string filename = "ExampleNames.txt";
-    std::ifstream file("ExampleNames.txt");
-
-    // FILE *F = fopen(filename.c_str(), "r"); // Lettura Binario
-
-    // if (F == NULL)
-    if (!file.is_open())
-        return false;
-
-    std::string text;
-    // while (fscanf(F, "%s", text) != EOF)
-    while (file >> text)
-    {
-        LOG(text)
-    }
-
-    // fclose(F);
-    file.close();
-    return true;
-}
-
-void commads()
-{
-    // popen();
-}
+void printlocals(std::set<std::string> array);
