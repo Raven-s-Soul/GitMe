@@ -65,18 +65,21 @@ void fileRead(std::string filename, std::set<std::string> *set)
 
 void cdTo(std::string directory)
 {
-    LOG(directory << " ----------")
-#ifdef __APPLE__
-    std::string command = "cd " + directory;
-    std::system(command.c_str());
-#elif _WIN32
-    ShellExecuteA(NULL, "cd", directory, NULL, NULL, SW_SHOWNORMAL);
+    LOG("\n"
+        << directory << " <----------")
+#ifdef _WIN32
+    if (_chdir(directory.c_out()) != 0)
+        std::cerr << "Failed to change directory" << std::endl;
 #else
-    std::string command = "cd " + directory;
-    std::system(command.c_str());
+    if (chdir(directory.c_str()) != 0)
+    {
+        throw std::runtime_error("Failed to change directory.");
+    }
 #endif
+}
 
-    FILE *pipe = popen((command + " && ls").c_str(), "r");
+/*
+    FILE *pipe = popen("ls", "r");
     if (pipe == NULL)
     {
         perror("popen failed");
@@ -93,4 +96,4 @@ void cdTo(std::string directory)
     }
     //  Close the pipe
     pclose(pipe);
-}
+    */

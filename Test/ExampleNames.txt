@@ -1,4 +1,4 @@
 AssertError
 ../Test
-../'out'
-../"GitMe"
+../out
+../GitMe

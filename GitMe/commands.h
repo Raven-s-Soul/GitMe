@@ -6,8 +6,10 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <direct.h> // For _chdir on Windows
 #else
 #include <cstdlib>
+#include <unistd.h>
 #endif
 
 // looking for File to read

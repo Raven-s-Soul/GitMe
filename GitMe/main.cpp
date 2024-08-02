@@ -25,8 +25,27 @@ int main(int argc, char *argv[])
 
     for (std::string a : locations)
     {
-        cdTo(a);
-        gitMe();
+        bool skip = false;
+        try
+        {
+            cdTo(a);
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+            skip = true;
+        }
+        if (!skip)
+        {
+            try
+            {
+                gitMe();
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+        }
     }
 
     //*  free memory
