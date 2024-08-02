@@ -31,4 +31,4 @@ void gitPush(std::string folder);
 
 std::string githubLink(std::string folder);
 std::string GameSavesLink();
-std::string foldName(std::string folder);
+std::string removeUntilLastSlash(std::string &input);

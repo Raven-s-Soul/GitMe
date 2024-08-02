@@ -65,6 +65,7 @@ void printlocals(std::set<std::string> array)
 
 void gitMe(std::string folder)
 {
+    std::system("git config --global --add --bool push.autoSetupRemote true");
     gitInit();
     gitCheckout(folder);
     gitPull();
@@ -75,16 +76,19 @@ void gitMe(std::string folder)
 
 void gitCheckout(std::string folder)
 {
-    std::system("git config --global --add --bool push.autoSetupRemote true");
     // std::string url = "git clone " + GameSavesLink() + "";
     std::string url = "git remote add origin " + GameSavesLink();
+    LOG(url)
     int res = std::system(url.c_str());
-    if (res != 0)
-    {
-        LOG(res)
-        // throw std::runtime_error("ERROR add origin");
-    }
-    std::string command = "git checkout -b " + foldName(folder);
+    // if (res != 0)
+    // {
+    //     LOG("add origin code:")
+    //     LOG(res)
+    //     // throw std::runtime_error("ERROR add origin");
+    // }
+    std::string branchName = removeUntilLastSlash(folder);
+    // LOG(branchName)
+    std::string command = "git checkout -b " + branchName;
     std::system(command.c_str());
 }
 
@@ -106,21 +110,21 @@ void gitAdd()
 {
     std::string command = add;
     int result = std::system(command.c_str());
-    if (result != 0)
-    {
-        // throw std::runtime_error("ERROR add");
-        LOG("ERROR add");
-    }
+    // if (result != 0)
+    // {
+    //     // throw std::runtime_error("ERROR add");
+    //     // LOG("ERROR add");
+    // }
 }
 void gitCommit()
 {
     std::string command = commit;
     int result = std::system(command.c_str());
-    if (result != 0)
-    {
-        // throw std::runtime_error("ERROR commit");
-        LOG("ERROR commit");
-    }
+    // if (result != 0)
+    // {
+    //     // throw std::runtime_error("ERROR commit");
+    //     LOG("ERROR commit");
+    // }
 }
 
 void gitPush(std::string folder)
@@ -148,7 +152,7 @@ void gitPush(std::string folder)
 // https://github.com/Raven-s-Soul/GitMe.git
 std::string githubLink(std::string folder)
 {
-    std::string foldeName = foldName(folder);
+    std::string foldeName = removeUntilLastSlash(folder);
     // Retrieve the Git username
     std::string username = exec("git config user.name");
     // Trim newline characters
@@ -166,16 +170,23 @@ std::string githubLink(std::string folder)
 std::string GameSavesLink()
 {
     std::string str = "GameSaves";
+    // std::string str = "GameSavesDev";
     return githubLink(str);
     // return "https://github.com/Raven-s-Soul/GameSaves.git";
 }
 
-std::string foldName(std::string folder)
+std::string removeUntilLastSlash(std::string &input)
 {
-    size_t pos = folder.find('/');
+    // Find the position of the last occurrence of '/'
+    size_t pos = input.find_last_of('/');
+
+    // Check if '/' was found
     if (pos != std::string::npos)
     {
-        folder.erase(0, pos + 1);
+        // Return the substring after the last '/'
+        return input.substr(pos + 1);
     }
-    return folder;
+
+    // If '/' is not found, return the original string
+    return input;
 }

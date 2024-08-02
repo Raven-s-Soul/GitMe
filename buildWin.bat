@@ -10,5 +10,5 @@ cmake --build .\out\
 :: for other
 cd out\GitMe\Debug
 
-GitMe.exe
+GitMe.exe ..\..\Test
 :: .\GitMe.exe

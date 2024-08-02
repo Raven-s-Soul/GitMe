@@ -11,7 +11,8 @@ brew install git // MacOs
 ```
 
 - Account GitHub
-  - And [Repository to fork](https://github.com/Raven-s-Soul/GameSaves)
+  - And [Repository to fork/template](https://github.com/Raven-s-Soul/GameSavesDev)
+    - Rename your new Repository `GameSaves`.
   - All your saves are in the fork in the differents branches.
 - Set your own local machine to have the same `user.name` as on github `username`.
 
@@ -36,3 +37,5 @@ git config --global --add --bool push.autoSetupRemote true
 - CMake
 - C++ compiler
 - Some patience
+
+> If you plan to help this project may build the same project but using the `dev` on the `GameSavesLink()` function.
