@@ -62,3 +62,35 @@ void fileRead(std::string filename, std::set<std::string> *set)
     }
     file.close();
 }
+
+void cdTo(std::string directory)
+{
+    LOG(directory << " ----------")
+#ifdef __APPLE__
+    std::string command = "cd " + directory;
+    std::system(command.c_str());
+#elif _WIN32
+    ShellExecuteA(NULL, "cd", directory, NULL, NULL, SW_SHOWNORMAL);
+#else
+    std::string command = "cd " + directory;
+    std::system(command.c_str());
+#endif
+
+    FILE *pipe = popen((command + " && ls").c_str(), "r");
+    if (pipe == NULL)
+    {
+        perror("popen failed");
+    }
+
+    // Read the output of the command line by line
+    char buffer[128];
+    while (fgets(buffer, sizeof(buffer), pipe) != NULL)
+    {
+        // TODO fix AssertError ----------
+        // TODO sh: line 0: cd: AssertError: No such file or directory
+        // LOG(buffer)
+        //  LOG("Element Found - " << buffer)
+    }
+    //  Close the pipe
+    pclose(pipe);
+}

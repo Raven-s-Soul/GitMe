@@ -1,6 +1,4 @@
-HelloWorld!
-ABCDE1234
-«“‘¥~‹÷´`≠¡ˆ!"£$%&/()=?^
-"TEXT"!
-abc'def'
-'\0'ccd
+AssertError
+../Test
+../'out'
+../"GitMe"

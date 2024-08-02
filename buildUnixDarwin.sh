@@ -6,7 +6,7 @@ cmake ..
 cd ..
 cmake --build out
 cd out/GitMe
-./GitMe Example Examples # <FileName.extension> <> ...
+./GitMe ../GitMe # <FileName.extension> <> ...
 
 #? Testing
 cp GitMe ../../Test

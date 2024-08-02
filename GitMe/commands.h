@@ -15,3 +15,6 @@ bool lfFile(std::set<std::string> *set);
 
 // read inside the file
 void fileRead(std::string filename, std::set<std::string> *set);
+
+// command cd to a directory
+void cdTo(std::string directory);
