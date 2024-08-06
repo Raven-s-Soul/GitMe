@@ -7,9 +7,8 @@ cd ..
 cmake --build out
 cd out/GitMe
 ./GitMe
-./GitMe ../../Test # <FileName.extension> <> ...
 
-# Testing
-#cp GitMe ../../Test
+#* Testing
+./GitMe ../../Test # <FileName.extension> <> ...
 #cd ../../Test
-#./GitMe
+#pwd | GitMe

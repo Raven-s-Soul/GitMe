@@ -6,8 +6,6 @@
 #include <set>
 #include <string>
 
-#define File_Extension ".txt"
-
 static std::set<std::string> locations;
 
 // Debug tool

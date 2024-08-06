@@ -89,27 +89,7 @@ void cdTo(std::string directory)
     // file.close();
 }
 
-/*
-    FILE *pipe = popen("ls", "r");
-    if (pipe == NULL)
-    {
-        perror("popen failed");
-    }
-
-    // Read the output of the command line by line
-    char buffer[128];
-    while (fgets(buffer, sizeof(buffer), pipe) != NULL)
-    {
-        // TODO fix AssertError ----------
-        // TODO sh: line 0: cd: AssertError: No such file or directory
-        // LOG(buffer)
-        //  LOG("Element Found - " << buffer)
-    }
-    //  Close the pipe
-    pclose(pipe);
-    */
-
-// Function to execute a command and get its output
+//* Function to execute a command and get its output
 std::string exec(const std::string &cmd)
 {
     char buffer[128];

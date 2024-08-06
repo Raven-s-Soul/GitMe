@@ -8,3 +8,8 @@
 #else
 #define LOG(message) ;
 #endif
+
+// Feel free to edit if you plan to make another
+// version for other cases then games save files
+#define REPOSITORY_NAME "GameSaves"
+#define File_Extension ".GitMe"

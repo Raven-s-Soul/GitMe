@@ -149,11 +149,10 @@ void gitPush(std::string folder)
     }
 }
 
-// https://github.com/Raven-s-Soul/GitMe.git
-std::string githubLink(std::string folder)
+std::string githubLink(std::string RepoName)
 {
-    std::string foldeName = removeUntilLastSlash(folder);
-    // Retrieve the Git username
+    // std::string foldeName = removeUntilLastSlash(RepoName);
+    //  Retrieve the Git username
     std::string username = exec("git config user.name");
     // Trim newline characters
     if (!username.empty() && username.back() == '\n')
@@ -163,15 +162,15 @@ std::string githubLink(std::string folder)
     std::replace(username.begin(), username.end(), ' ', '-');
     // LOG(username)
     // LOG(folder)
-    return "https://github.com/" + username + "/" + folder + ".git";
+    return "https://github.com/" + username + "/" + RepoName + ".git";
 }
 
 // Make a url like this https://github.com/Raven-s-Soul/GameSaves.git
 std::string GameSavesLink()
 {
-    std::string str = "GameSaves";
+    // std::string str = "GameSaves";
     // std::string str = "GameSavesDev";
-    return githubLink(str);
+    return githubLink(REPOSITORY_NAME);
     // return "https://github.com/Raven-s-Soul/GameSaves.git";
 }
 
