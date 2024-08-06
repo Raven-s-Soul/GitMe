@@ -57,7 +57,7 @@ GitMe ../<FolderName>
 
 Add to Environment Variables "PATH".
 
-> **_ Cool thing you can edit on the macro.h the name of the repository if u want to use for other things than SaveGames._**
+> **_Cool thing you can edit on the macro.h the name of the repository if u want to use for other things than SaveGames._**
 
 ---
 
