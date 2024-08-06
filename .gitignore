@@ -368,4 +368,5 @@ FodyWeavers.xsd
 /.gitattributes
 .vscode/*
 /Test/*
+!ExampleNames.GitMe
 !.gitignore
