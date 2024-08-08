@@ -1,7 +1,13 @@
-﻿cmake_minimum_required(VERSION 3.5)
+﻿cmake_minimum_required(VERSION 3.8)
 
 # Needed for tests
 set(CMAKE_CXX_COMPILER g++)
+
+# Set the C++ standard to C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+
+# set(CMAKE_CXX_EXTENSIONS NO)
 
 # set(CMAKE_CXX_COMPILER cl) # Using windows
 

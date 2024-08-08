@@ -10,10 +10,17 @@
 >
 > **_Keep your `saves` always with you!_** 😜
 
+```c
+GitMe -h //Unix Style
+// @Args <- are folder paths
+GitMe @Arg1 @Arg2 ... // not sure about the limits
+GitMe // Look for .GitMe file containg @Args
+```
+
 ## Requirements to run:
 
 > - Account GitHub
-> - And [Repository to fork/template](https://github.com/Raven-s-Soul/GameSavesDev)
+> - And [Repository to use as a template](https://github.com/Raven-s-Soul/GitMeTemplate)
 >   - Rename your new Repository `GameSaves`.
 > - All your saves are in the fork in the differents branches.
 
@@ -104,3 +111,7 @@ pwd | GitMeWrapper
 - CMake
 - C++ compiler
 - Some patience
+
+> ### <filesystem> - C++17 standard
+>
+> with GCC, you might need to link with -lstdc++fs in some versions.

@@ -13,3 +13,8 @@
 // version for other cases then games save files
 #define REPOSITORY_NAME "GameSaves"
 #define File_Extension ".GitMe"
+
+#define help "-h"
+// #define helpAns "Automaticly git things on your " + REPOSITORY_NAME + " repository on GitHub \n@Args <- are folder paths \nGitMe @Arg1 @Arg2... \nGitMe // Look for .GitMe file \nMore on https://github.com/Raven-s-Soul/GitMe"
+
+#define CloneForceDelete 0
