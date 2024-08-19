@@ -9,7 +9,7 @@ cmake --build .\out\
 
 :: for other
 cd out\GitMe\Debug
-
+.\GitMe.exe -h
 .\GitMe.exe ..\..\..\Test
 
 @REM cd ..\..\..\Test
