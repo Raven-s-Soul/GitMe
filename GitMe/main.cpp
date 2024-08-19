@@ -2,6 +2,8 @@
 
 int main(int argc, char *argv[])
 {
+    std::set<std::string> locations;
+
     if (argc == 1)
     {
         LOG("No Console Input")
@@ -15,7 +17,7 @@ int main(int argc, char *argv[])
         std::string arg = argv[i];
         if (arg.find(help) != std::string::npos)
         {
-            std::cout << "Automaticly git things on your " << REPOSITORY_NAME << " repository on GitHub \n@Args <- are folder paths \nGitMe @Arg1 @Arg2... \nGitMe // Look for .GitMe file\nMore on https://github.com/Raven-s-Soul/GitMe" << std::endl;
+            std::cout << "Automaticly git things on your " << REPOSITORY_NAME << " repository on GitHub \n@Args <- are folder paths \nGitMe @Arg1 @Arg2... \nGitMe // Look for .GitMe file \nMore on https://github.com/Raven-s-Soul/GitMe" << std::endl;
             return 2;
             // i++;
         }
@@ -64,15 +66,6 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-//? Actualy if not using the input locations is gonna lose scope...
-void printlocals(std::set<std::string> array)
-{
-    for (auto a : array)
-    {
-        std::cout << a << std::endl;
-    }
-}
-
 void gitMe(std::string folder)
 {
     std::system("git config --global --add --bool push.autoSetupRemote true");
@@ -88,17 +81,6 @@ void gitMe(std::string folder)
     gitAdd();
     gitCommit();
     gitPush(folder);
-}
-
-bool isRepo(std::string path)
-{
-    if (ISAREPOSITORY)
-    {
-        // LOG("/" + removeUntilLastSlash(path) + "/.git")
-        return std::filesystem::exists(".git");
-    }
-    std::cout << "Missing <filesystem> - needed" << std::endl;
-    return false;
 }
 
 void gitCheckout(std::string folder)
@@ -126,9 +108,13 @@ bool gitClone(std::string folder)
     int result;
     std::string command = "git ls-remote --heads " + GameSavesLink() + " " + removeUntilLastSlash(folder);
     std::cout << command << std::endl;
-    result = std::system(command.c_str());
-    LOG(result)
-    if (result == 0)
+
+    std::string risposta = exec(command);
+    // result = std::system(command.c_str());
+    //  LOG(result)
+    // if (result == 0)
+    std::string toFind = "refs/heads/" + removeUntilLastSlash(folder);
+    if (risposta.find(toFind.c_str()) != std::string::npos)
     {
         std::cout << "Found online branch" << std::endl;
         //! Not forced
@@ -247,45 +233,4 @@ void gitPush(std::string folder)
             LOG(result)
         }
     }
-}
-
-std::string githubLink(std::string RepoName)
-{
-    // std::string foldeName = removeUntilLastSlash(RepoName);
-    //  Retrieve the Git username
-    std::string username = exec("git config user.name");
-    // Trim newline characters
-    if (!username.empty() && username.back() == '\n')
-    {
-        username.pop_back();
-    }
-    std::replace(username.begin(), username.end(), ' ', '-');
-    // LOG(username)
-    // LOG(folder)
-    return "https://github.com/" + username + "/" + RepoName + ".git";
-}
-
-// Make a url like this https://github.com/Raven-s-Soul/GameSaves.git
-std::string GameSavesLink()
-{
-    // std::string str = "GameSaves";
-    // std::string str = "GameSavesDev";
-    return githubLink(REPOSITORY_NAME);
-    // return "https://github.com/Raven-s-Soul/GameSaves.git";
-}
-
-std::string removeUntilLastSlash(std::string &input)
-{
-    // Find the position of the last occurrence of '/'
-    size_t pos = input.find_last_of('/');
-
-    // Check if '/' was found
-    if (pos != std::string::npos)
-    {
-        // Return the substring after the last '/'
-        return input.substr(pos + 1);
-    }
-
-    // If '/' is not found, return the original string
-    return input;
 }

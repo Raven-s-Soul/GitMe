@@ -86,11 +86,16 @@ void cdTo(std::string directory)
               << directory << std::endl;
 #ifdef _WIN32
     if (_chdir(directory.c_str()) != 0)
+    {
         std::cerr << "Failed to change directory" << std::endl;
+        throw std::exception();
+    }
+
 #else
     if (chdir(directory.c_str()) != 0)
     {
         throw std::runtime_error("Failed to change directory.");
+        throw std::exception();
     }
 #endif
 
@@ -102,42 +107,4 @@ void cdTo(std::string directory)
     // std::string text = "GitMe";
     // file << text;
     // file.close();
-}
-
-//* Function to execute a command and get its output
-std::string exec(const std::string &cmd)
-{
-    char buffer[128];
-    std::string result;
-#ifdef _WIN32
-    FILE *pipe = _popen(cmd.c_str(), "r");
-#else
-    FILE *pipe = popen(cmd.c_str(), "r");
-#endif
-
-    if (!pipe)
-        throw std::runtime_error("popen() failed!");
-    try
-    {
-        while (fgets(buffer, sizeof(buffer), pipe) != nullptr)
-        {
-            result += buffer;
-        }
-    }
-    catch (...)
-    {
-#ifdef _WIN32
-        _pclose(pipe);
-#else
-        pclose(pipe);
-#endif
-        throw;
-    }
-#ifdef _WIN32
-    _pclose(pipe);
-#else
-    pclose(pipe);
-#endif
-
-    return result;
 }

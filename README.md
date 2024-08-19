@@ -36,7 +36,7 @@ brew install git // MacOs
 ```c
 git config user.name // has to be the same on GitHub
 git config user.name "YourGitHubUsername"
-git config --global user.name // tecnicly is not needed to be the same
+git config --global user.name // May be needed
 ```
 
 > If you changed the user after run the program, you may need to delete the hidden .git folder
@@ -72,35 +72,6 @@ Add to Environment Variables "PATH".
 
 > Alternative is to `pwd | GitMe` but is needed make a pipe Wrapper for console.
 
-### GitMeWrapper
-
-```c
-#!/bin/bash
-
-# Read from pipe or arguments
-if [ -t 0 ]; then
-    # No pipe, use arguments directly
-    ./GitMe "$@"
-else
-    # Read from pipe and pass as arguments
-    ARGS=$(cat -)
-    ./GitMe $ARGS
-fi
-```
-
-_On console_
-
-```c
-chmod +x GitMeWrapper
-```
-
-**Then you can use**
-
-```c
-GitMeWrapper arg1 arg2 arg3
-pwd | GitMeWrapper
-```
-
 ---
 
 ## Do you wanna help this small project?
@@ -111,7 +82,3 @@ pwd | GitMeWrapper
 - CMake
 - C++ compiler
 - Some patience
-
-> ### <filesystem> - C++17 standard
->
-> with GCC, you might need to link with -lstdc++fs in some versions.

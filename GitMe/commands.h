@@ -1,8 +1,6 @@
 #pragma once
-#include "main.h"
 #include "macro.h"
-#include <set>
-#include <string>
+// #include "main.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -20,5 +18,3 @@ void fileRead(std::string filename, std::set<std::string> *set);
 
 // command cd to a directory
 void cdTo(std::string directory);
-
-std::string exec(const std::string &cmd);
