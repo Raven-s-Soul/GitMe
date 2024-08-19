@@ -119,7 +119,7 @@ bool gitClone(std::string folder)
         std::cout << "Found online branch" << std::endl;
         //! Not forced
         cdTo("..");
-        std::cout << "For download last version use Y/y for delete the folder and files." << std::endl;
+        std::cout << "For download last version use (Y/y) or (S/s) for delete the folder and files." << std::endl;
 #ifdef _WIN32
         command = "rmdir /s " + removeUntilLastSlash(folder);
 #else
