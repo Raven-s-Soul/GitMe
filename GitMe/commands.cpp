@@ -8,18 +8,28 @@ bool lfFile(std::set<std::string> *set)
     std::string command = "ls";
     std::system(command.c_str());
 #elif _WIN32
-    ShellExecuteA(NULL, "dir", NULL, NULL, NULL, SW_SHOWNORMAL);
+    std::string command = "dir";
+    ShellExecuteA(NULL, command.c_str(), NULL, NULL, NULL, SW_SHOWNORMAL);
 #else
     std::string command = "ls ";
     std::system(command.c_str());
 #endif
 
+#ifdef _WIN32
+    FILE *pipe = _popen(command.c_str(), "r");
+    if (pipe == NULL)
+    {
+        perror("popen failed");
+        return 1;
+    }
+#else
     FILE *pipe = popen(command.c_str(), "r");
     if (pipe == NULL)
     {
         perror("popen failed");
         return 1;
     }
+#endif
 
     // Read the output of the command line by line
     char buffer[128];
@@ -45,8 +55,13 @@ bool lfFile(std::set<std::string> *set)
         }
     }
     LOG("Done files");
-    //  Close the pipe
+
+//  Close the pipe
+#ifdef _WIN32
+    _pclose(pipe);
+#else
     pclose(pipe);
+#endif
     return 0;
 }
 
@@ -70,7 +85,7 @@ void cdTo(std::string directory)
     std::cout << "\n"
               << directory << std::endl;
 #ifdef _WIN32
-    if (_chdir(directory.c_out()) != 0)
+    if (_chdir(directory.c_str()) != 0)
         std::cerr << "Failed to change directory" << std::endl;
 #else
     if (chdir(directory.c_str()) != 0)
