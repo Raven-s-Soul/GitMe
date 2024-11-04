@@ -82,3 +82,27 @@ Add to Environment Variables "PATH".
 - CMake
 - C++ compiler
 - Some patience
+
+```mermaid
+flowchart TD
+    A(Program Run) -->|No @Args| B([locate .GitMe in folder])
+    A -->|@Args| C
+    B --> | Read locations from file| C
+    C[Loaded Paths]
+    C --> | Empty list | E([ Exit ])
+    C --> | Correct using path | F 
+    C --> | Failed location | D([ Skip path ])
+    F[Found directory] 
+    F --> | Not a repository | G
+
+    F --> | Is a repository | H(Git Pull or ask for force update)
+    H --> | Git Add | M([Git Commit])
+    M --> N([Git Push])
+    N --> C
+    
+    G([Check if there is an online comparison]) --> |Found online branch| I([Git Clone --branch])
+    I --> O
+    G --> | No online comparison | O([Git Init])
+    O --> P([Git Checkout])
+    P --> H
+```
