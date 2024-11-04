@@ -39,6 +39,9 @@ int main(int argc, char *argv[])
         bool skip = false;
         try
         {
+            // Remove last "\" or "/"
+            removeLastSlash(a);
+            replaceSpaces(a);
             cdTo(a);
         }
         catch (const std::exception &e)
@@ -232,5 +235,21 @@ void gitPush(std::string folder)
             throw std::runtime_error("ERROR adding remote");
             LOG(result)
         }
+    }
+}
+
+void removeLastSlash(std::string &str)
+{
+    if (!str.empty() && (str.back() == '/' || str.back() == '\\'))
+    {
+        str.pop_back();
+    }
+}
+
+void replaceSpaces(std::string &str)
+{
+    if (!str.empty())
+    {
+        std::replace(str.begin(), str.end(), ' ', '-');
     }
 }

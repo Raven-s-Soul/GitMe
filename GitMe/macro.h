@@ -37,3 +37,6 @@ bool isRepo(std::string path);
 
 //? Actualy if not using the input locations is gonna lose scope...
 void printlocals(std::set<std::string> array);
+
+void removeLastSlash(std::string &str);
+void replaceSpaces(std::string &str);
