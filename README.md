@@ -86,7 +86,7 @@ Add to Environment Variables "PATH".
 ```mermaid
 flowchart TD
     A(Program Run) -->|No @Args| B([locate .GitMe in folder])
-    A -->|@Args| C
+    A -->| @Args | C
     B --> | Read locations from file| C
     C[Loaded Paths]
     C --> | Empty list | E([ Exit ])
